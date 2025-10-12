@@ -41,11 +41,11 @@ public class LeetCode1721 extends ListNode {
 
     public static void main(String[] args) {
         LeetCode1721 obj = new LeetCode1721();
-        int[] arr = new int[]{1,2,3,4,5,6};
+        int[] arr = new int[]{1,2,3,4,5};
         ListNode head = obj.createLinkedList(arr);
         System.out.println("Linked List -> ");
         obj.displayLinkedList(head);
-        int n = 1;
+        int n = 5;
         head = obj.swapNodes(head, n);
         System.out.println("Linked List after swapping -> ");
         obj.displayLinkedList(head);
