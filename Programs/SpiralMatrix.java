@@ -3,9 +3,12 @@ package Programs;
 public class SpiralMatrix {
 
     public static void main(String[] args) {
-        int n = 4;
+        int n = 1;
         int[][] spiral = new int[n][n];
-        right(spiral, 0, 0, 0, n-1 , 0 , n-1, 1);
+        if(n==1)
+            spiral[0][0] = 1;
+        else
+            right(spiral, 0, 0, 0, n-1 , 0 , n-1, 1);
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
                 System.out.print(spiral[i][j]+ "\t");
