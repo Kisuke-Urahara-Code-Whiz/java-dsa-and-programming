@@ -1,5 +1,7 @@
 package LeetCodeMedium;
 
+//Not the optimal solution please dont submit -> this is just the brute force DFS approach
+
 public class LeetCode198_BruteForce_O2pn {
 
     int max = -1;
