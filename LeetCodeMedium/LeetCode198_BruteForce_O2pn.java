@@ -1,6 +1,6 @@
 package LeetCodeMedium;
 
-//Not the optimal solution please dont submit -> this is just the brute force DFS approach
+//Not the optimal solution please don't submit -> this is just the brute force DFS approach
 
 public class LeetCode198_BruteForce_O2pn {
 
