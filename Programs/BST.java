@@ -108,6 +108,9 @@ public class BST {
     public void getHeight(){
         if(root!=null){
             System.out.println("Height of tree is "+root.height);
+        } else {
+            System.out.println("Empty tree is empty");
         }
     }
+
 }
