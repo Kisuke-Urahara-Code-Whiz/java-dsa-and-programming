@@ -11,6 +11,7 @@ public class BST {
 
         Node(int value){
             this.value = value;
+            this.height = 0;
         }
 
         Node(int value, Node left, Node right){
@@ -49,6 +50,10 @@ public class BST {
                     insertNode(node.right, value);
                 }
             }
+            node.height = 1 + Math.max(
+                    (node.left != null ? node.left.height : -1),
+                    (node.right != null ? node.right.height : -1)
+            );
         }
     }
 
@@ -94,9 +99,15 @@ public class BST {
 
     private void postorderTraversal(Node node){
         if(node!=null){
-            postorderTraversal(node.right);
+            postorderTraversal(node.left);
             postorderTraversal(node.right);
             System.out.print(node.value+" -> ");
+        }
+    }
+
+    public void getHeight(){
+        if(root!=null){
+            System.out.println("Height of tree is "+root.height);
         }
     }
 }
