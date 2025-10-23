@@ -3,27 +3,27 @@ package LeetCodeEasy;
 public class LeetCode28 {
 
     public int strStr(String haystack, String needle) {
-        char[] c = haystack.toCharArray();
-        char[] ch = needle.toCharArray();
-        int a = 0;
-        int b = 0;
-        int index = -1;
-        while(a<c.length && b<ch.length){
-            if(c[a]==ch[b]){
-                if(a==0)
-                    index = a;
-                a+=1;
-            } else {
-                a=0;
-                index=-1;
-            }
-            b+=1;
+        if(haystack.length() < needle.length()){
+            return -1;
         }
-        return index;
+        if(haystack.equals(needle)){
+            return 0;
+        }
+        int l = needle.length();
+        int a = 0;
+        while(a+l<=haystack.length()){
+            if(needle.equals(haystack.substring(a,a+l))){
+                return a;
+            } else
+                a+=1;
+        }
+        return -1;
     }
 
     public static void main(String[] args) {
-        
+        String haystack = "abc";
+        String needle = "c";
+        System.out.println("Index -> "+new LeetCode28().strStr(haystack, needle));
     }
 
 }
