@@ -1,7 +1,9 @@
 package Programs;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class BST {
 
@@ -116,26 +118,55 @@ public class BST {
         }
     }
 
-    public void printLevel(){
+    public void printLevelDFS(){
         List<List<Integer>> list = new ArrayList<>();
         if(root==null){
             System.out.println("No elements to print");
         } else {
-            printLevel(root,0,list);
+            printLevelDFS(root,0,list);
             for(int i=0;i<list.size();i++){
                 System.out.println("Elements at level "+i+" -> "+list.get(i));
             }
         }
     }
 
-    private void printLevel(Node node,int level,List<List<Integer>> list){
+    private void printLevelDFS(Node node,int level,List<List<Integer>> list){
         if(node!=null){
             if(list.size()==level){
                 list.add(new ArrayList<>());
             }
             list.get(level).add(node.value);
-            printLevel(node.left,level+1,list);
-            printLevel(node.right,level+1,list);
+            printLevelDFS(node.left,level+1,list);
+            printLevelDFS(node.right,level+1,list);
+        }
+    }
+
+    public void printLevelBFS(){
+        List<List<Integer>> list = new ArrayList<>();
+        if(root==null){
+            System.out.println("No elements to print");
+        } else {
+            List<Integer> levelList = new ArrayList<>();
+            Queue<Node> queue = new LinkedList<>();
+            queue.offer(root);
+            while(!queue.isEmpty()){
+                int levelSize =  queue.size();
+                for(int i=0;i<levelSize;i++){
+                    Node node = queue.poll();
+                    levelList.add(node.value);
+                    if(node.left!=null){
+                        queue.offer(node.left);
+                    }
+                    if(node.right!=null){
+                        queue.offer(node.right);
+                    }
+                }
+                list.add(new ArrayList<>(levelList));
+                levelList.clear();
+            }
+            for(int i=0;i<list.size();i++){
+                System.out.println("Elements at level "+i+" -> "+list.get(i));
+            }
         }
     }
 }

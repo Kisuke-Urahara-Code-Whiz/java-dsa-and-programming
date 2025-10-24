@@ -15,6 +15,7 @@ public class Tree{
         tree.insert(6);
         tree.insert(8);
         tree.inorder();
-        tree.printLevel();
+        tree.printLevelDFS();
+        tree.printLevelBFS();
     }
 }
