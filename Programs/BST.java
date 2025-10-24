@@ -161,8 +161,8 @@ public class BST {
                         queue.offer(node.right);
                     }
                 }
-                list.add(new ArrayList<>(levelList));
-                levelList.clear();
+                list.add(levelList);
+                levelList = new ArrayList<>();
             }
             for(int i=0;i<list.size();i++){
                 System.out.println("Elements at level "+i+" -> "+list.get(i));

@@ -3,10 +3,13 @@ package LeetCodeMedium;
 import Programs.TreeNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class LeetCode102 extends TreeNode {
 
+    //DFS
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> list = new ArrayList<>();
         if(root==null){
@@ -28,4 +31,31 @@ public class LeetCode102 extends TreeNode {
         }
     }
 
+    //BFS
+    public List<List<Integer>> printLevelBFS(TreeNode root){
+        List<List<Integer>> list = new ArrayList<>();
+        if(root==null){
+            System.out.println("No elements to print");
+        } else {
+            List<Integer> levelList = new ArrayList<>();
+            Queue<TreeNode> queue = new LinkedList<>();
+            queue.offer(root);
+            while(!queue.isEmpty()){
+                int levelSize =  queue.size();
+                for(int i=0;i<levelSize;i++){
+                    TreeNode node = queue.poll();
+                    levelList.add(node.val);
+                    if(node.left!=null){
+                        queue.offer(node.left);
+                    }
+                    if(node.right!=null){
+                        queue.offer(node.right);
+                    }
+                }
+                list.add(levelList);
+                levelList = new ArrayList<>();
+            }
+        }
+        return list;
+    }
 }
