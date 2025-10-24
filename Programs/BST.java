@@ -1,5 +1,8 @@
 package Programs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BST {
 
     private class Node{
@@ -113,4 +116,26 @@ public class BST {
         }
     }
 
+    public void printLevel(){
+        List<List<Integer>> list = new ArrayList<>();
+        if(root==null){
+            System.out.println("No elements to print");
+        } else {
+            printLevel(root,0,list);
+            for(int i=0;i<list.size();i++){
+                System.out.println("Elements at level "+i+" -> "+list.get(i));
+            }
+        }
+    }
+
+    private void printLevel(Node node,int level,List<List<Integer>> list){
+        if(node!=null){
+            if(list.size()==level){
+                list.add(new ArrayList<>());
+            }
+            list.get(level).add(node.value);
+            printLevel(node.left,level+1,list);
+            printLevel(node.right,level+1,list);
+        }
+    }
 }
