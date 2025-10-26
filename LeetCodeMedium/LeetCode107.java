@@ -9,7 +9,7 @@ public class LeetCode107 extends TreeNode {
         Integer[] arr = {3,9,20,null,null,15,7};
         LeetCode107 obj = new LeetCode107();
         TreeNode root = obj.buildTree(arr);
-        List<List<Integer>> result = obj.levelOrderBottom(root);
+        List<List<Integer>> result = obj.levelOrderBottomLL(root);
         System.out.println(result);
     }
 
@@ -46,6 +46,32 @@ public class LeetCode107 extends TreeNode {
             }
             res.add(levelList);
         }
+        return res;
+    }
+
+    public List<List<Integer>> levelOrderBottomLL(TreeNode root) {
+        LinkedList<List<Integer>> res = new LinkedList<>();
+        if (root == null) return res;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            List<Integer> level = new ArrayList<>();
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode node = queue.poll();
+                level.add(node.val);
+
+                if (node.left != null) queue.offer(node.left);
+                if (node.right != null) queue.offer(node.right);
+            }
+
+
+            res.addFirst(level);
+        }
+
         return res;
     }
 
