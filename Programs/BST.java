@@ -169,4 +169,30 @@ public class BST {
             }
         }
     }
-}
+
+    public void preorderArray(){
+        if(root!=null){
+            ListNode ll = new ListNode(root.value);
+            ListNode res = ll;
+            preorderArray(ll, root);
+            System.out.println("Preorder Traversal in LinkedList -> ");
+            ll.displayLinkedList(res);
+        } else {
+            System.out.println("Empty tree is empty");
+        }
+    }
+
+    private ListNode preorderArray(ListNode list, Node node){
+        if(root!=null){
+            if(node.left!=null){
+                list.next = new ListNode(node.left.value);
+                list = preorderArray(list.next,node.left);
+            }
+            if(node.right!=null){
+                list.next = new ListNode(node.right.value);
+                list = preorderArray(list.next,node.right);
+            }
+        }
+        return list;
+        }
+    }
