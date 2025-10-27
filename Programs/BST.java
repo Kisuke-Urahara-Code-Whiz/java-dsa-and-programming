@@ -173,10 +173,9 @@ public class BST {
     public void preorderArray(){
         if(root!=null){
             ListNode ll = new ListNode(root.value);
-            ListNode res = ll;
             preorderArray(ll, root);
             System.out.println("Preorder Traversal in LinkedList -> ");
-            ll.displayLinkedList(res);
+            ll.displayLinkedList(ll);
         } else {
             System.out.println("Empty tree is empty");
         }
