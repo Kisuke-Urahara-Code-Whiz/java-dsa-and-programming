@@ -15,24 +15,28 @@ public class LeetCode1669 extends ListNode {
 
     public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
         ListNode res = new ListNode(0,list1);
-        b = b-a;
-        list1 = res;
+        ListNode temp = res;
         ListNode p1;
-        ListNode p2;
-        while(a!=0 && list1!=null){
+        b = b-a;
+
+        while(a!=0){
+            temp = temp.next;
             a-=1;
-            list1 = list1.next;
         }
-        p1 = list1.next;
-        list1.next = list2;
-        while(list1.next!=null){
-            list1 = list1.next;
+
+        p1 = temp.next;
+        temp.next = list2;
+
+        while(temp.next!=null){
+            temp = temp.next;
         }
+
         while(b!=0){
             p1 = p1.next;
             b-=1;
         }
-        list1.next = p1.next;
+
+        temp.next = p1.next;
         return res.next;
     }
 }
