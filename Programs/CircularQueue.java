@@ -61,7 +61,7 @@ public class CircularQueue {
     }
 
     public void getRear(){
-        if(rear == null && front==null){
+        if(front == null){
             System.out.println("Queue is empty");
         } else if(rear == null){
             System.out.println("Rear Node -> "+front.data);
@@ -71,7 +71,7 @@ public class CircularQueue {
     }
 
     public void isEmpty(){
-        if(front == null && rear == null){
+        if(front == null){
             System.out.println("Queue is empty");
         }
     }
