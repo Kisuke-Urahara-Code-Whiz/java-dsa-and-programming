@@ -3,26 +3,24 @@ package Programs;
 public class CircularQueueTest {
 
     public static void main(String[] args) {
-        CircularQueue q = new CircularQueue();
+        CircularArrayQueue q = new CircularArrayQueue(5);
         q.push(5);
-        q.push(3);
-        q.push(2);
-        q.push(1);
         q.display();
-        q.pop();
-        q.pop();
-        q.display();
-        q.pop();
+        q.push(6);
+        q.push(7);
+        q.push(8);
+        q.push(9);
         q.display();
         q.push(10);
         q.display();
         q.pop();
         q.pop();
+        q.pop();
+        q.pop();
+        q.push(11);
         q.display();
-        q.push(5);
-        q.push(3);
-        q.push(2);
-        q.push(1);
+        q.pop();
+        q.pop();
         q.display();
     }
 }
