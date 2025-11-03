@@ -7,62 +7,76 @@ public class LeetCode54 {
 
     List<Integer> elements = new ArrayList<>();
 
-    public void right(int[][] spiral, int m, int n, int r1, int r2, int c1, int c2){
-        if(m<r1 || m>r2 || n<c1 || n>c2)
-            return;
-        else{
-            while(n<=c2){
-                elements.add(spiral[m][n]);
-                spiral[m][n++] = -101;
+    public List<Integer> spiralOrder(int[][] arr) {
+        boolean flag = true;
+        char dir = 'r';
+        int r1 = 0;
+        int r2 = arr.length-1;
+        int c1 = 0;
+        int c2 = arr[0].length-1;
+        while(flag){
+            if(dir=='r'){
+                for(int i=c1;i<=c2;i++){
+                    if(arr[r1][i]!=101) {
+                        elements.add(arr[r1][i]);
+                        arr[r1][i] = 101;
+                    } else {
+                        flag = false;
+                        break;
+                    }
+                }
+                r1+=1;
+                dir = 'd';
             }
-            down(spiral,m+1,n-1,r1+1,r2,c1,c2);
-        }
-    }
-
-    public void down(int[][] spiral, int m, int n, int r1, int r2, int c1, int c2){
-        if(m<r1 || m>r2 || n<c1 || n>c2)
-            return;
-        else{
-            while(m<=r2){
-                elements.add(spiral[m][n]);
-                spiral[m++][n] = -101;
+            else if(dir=='d'){
+                for(int i=r1;i<=r2;i++){
+                    if(arr[i][c2]!=101) {
+                        elements.add(arr[i][c2]);
+                        arr[i][c2] = 101;
+                    }
+                    else {
+                        flag = false;
+                        break;
+                    }
+                }
+                c2-=1;
+                dir = 'l';
+            } else if(dir=='l'){
+                for(int i=c2;i>=c1;i--){
+                    if(arr[r2][i]!=101) {
+                        elements.add(arr[r2][i]);
+                        arr[r2][i] = 101;
+                    }
+                    else {
+                        flag = false;
+                        break;
+                    }
+                }
+                r2-=1;
+                dir = 'u';
+            } else{
+                for(int i=r2;i>=r1;i--){
+                    if(arr[i][c1]!=101) {
+                        elements.add(arr[i][c1]);
+                        arr[i][c1] = 101;
+                    }
+                    else {
+                        flag = false;
+                        break;
+                    }
+                }
+                c1+=1;
+                dir = 'r';
             }
-            left(spiral,m-1,n-1,r1,r2,c1,c2-1);
-        }
-    }
-
-    public void left(int[][] spiral, int m, int n, int r1, int r2, int c1, int c2){
-        if(m<r1 || m>r2 || n<c1 || n>c2)
-            return;
-        else{
-            while(n>=c1){
-                elements.add(spiral[m][n]);
-                spiral[m][n--] = -101;
+            if(r1>r2 && c1>c2){
+                flag = false;
             }
-            up(spiral, m-1, n+1, r1, r2-1, c1, c2);
         }
-    }
-
-    public void up(int[][] spiral, int m, int n, int r1, int r2, int c1, int c2){
-        if(m<r1 || m>r2 || n<c1 || n>c2)
-            return;
-        else{
-            while(m>=r1){
-                elements.add(spiral[m][n]);
-                spiral[m--][n] = -101;
-            }
-            right(spiral, m+1, n+1, r1, r2, c1+1, c2);
-        }
-    }
-
-    public List<Integer> spiralOrder(int[][] matrix) {
-
-        right(matrix, 0, 0, 0, matrix.length-1 , 0, matrix[0].length - 1);
         return elements;
     }
 
     public static void main(String[] args) {
-        int[][] matrix = {{1}};
+        int[][] matrix = {{1,2,3},{4,5,6},{7,8,9}};
         LeetCode54 obj = new LeetCode54();
         List<Integer> ele = obj.spiralOrder(matrix);
         System.out.println(ele);
