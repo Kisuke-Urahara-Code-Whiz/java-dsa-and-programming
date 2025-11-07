@@ -8,5 +8,6 @@ public class AVLTest {
             tree.insert(i);
         }
         tree.preorderStack();
+        tree.BFS();
     }
 }

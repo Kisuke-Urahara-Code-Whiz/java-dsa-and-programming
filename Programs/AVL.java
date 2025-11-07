@@ -1,6 +1,6 @@
 package Programs;
 
-import java.util.Stack;
+import java.util.*;
 
 public class AVL {
 
@@ -119,6 +119,35 @@ public class AVL {
             if (curr.left != null) stack.push(curr.left);
         }
         System.out.println("NULL");
+    }
+
+    public void BFS(){
+        if(root==null) return;
+        List<List<Integer>> levels = new ArrayList<>();
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        int levelLength = queue.size();
+        while(!queue.isEmpty()){
+            List<Integer> levelList = new ArrayList<>();
+            for(int i=1;i<=levelLength;i++){
+                Node curr = queue.poll();
+                levelList.add(curr.val);
+                if(curr.left!=null) queue.add(curr.left);
+                if(curr.right!=null) queue.add(curr.right);
+            }
+            levelLength = queue.size();
+            levels.add(levelList);
+        }
+        int i=1;
+        System.out.println("Breadth First Traversal -> ");
+        for(List<Integer> level:levels){
+            System.out.print("Level "+i+" = ");
+            for(int n:level){
+                System.out.print(n+" ");
+            }
+            System.out.println();
+            i+=1;
+        }
     }
 
 }

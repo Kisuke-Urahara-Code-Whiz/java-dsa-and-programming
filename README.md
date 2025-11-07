@@ -7,7 +7,7 @@ Questions Solved:
 Difficulty   | Count
 ------------ | -----
 Easy         | 28
-Medium       | 47
+Medium       | 48
 Hard         | 8
-Total        | 83
+Total        | 84
 
