@@ -105,36 +105,20 @@ public class AVL {
     }
 
     public void preorderStack(){
-        if(root!=null){
-            Stack<Node> stack = new Stack<>();
-            stack.push(root);
-            Node curr = root.left;
-            Node prev = root;
-            System.out.print("Preorder Traversal : \n"+root.val+" -> ");
-            while(!stack.isEmpty()){
-                if(curr==null) {
-                    prev = curr;
-                    curr = stack.peek();
-                    while(!stack.isEmpty() && curr.right==prev && curr!=null){
-                        prev = stack.pop();
-                        if(!stack.isEmpty())
-                            curr = stack.peek();
-                        else
-                            curr = null;
-                    }
-                    if(curr!=null){
-                        prev = curr;
-                        curr = curr.right;
-                    }
-                } else {
-                    System.out.print(curr.val+" -> ");
-                    prev = curr;
-                    stack.push(prev);
-                    curr = curr.left;
-                }
-            }
-            System.out.println("NULL");
+        if (root == null) return;
+
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        System.out.print("Preorder Traversal:\n");
+
+        while (!stack.isEmpty()) {
+            Node curr = stack.pop();
+            System.out.print(curr.val + " -> ");
+
+            if (curr.right != null) stack.push(curr.right);
+            if (curr.left != null) stack.push(curr.left);
         }
+        System.out.println("NULL");
     }
 
 }
