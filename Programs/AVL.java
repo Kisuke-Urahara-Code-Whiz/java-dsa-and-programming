@@ -126,10 +126,6 @@ public class AVL {
                         prev = curr;
                         curr = curr.right;
                     }
-                } else if(curr.right==prev){
-                    prev = curr;
-                    if(!stack.isEmpty())
-                        curr = stack.pop();
                 } else {
                     System.out.print(curr.val+" -> ");
                     prev = curr;
