@@ -1,5 +1,7 @@
 package Programs;
 
+import java.util.Stack;
+
 public class AVL {
 
     private class Node{
@@ -101,4 +103,42 @@ public class AVL {
             System.out.println("Empty tree is empty");
         }
     }
+
+    public void preorderStack(){
+        if(root!=null){
+            Stack<Node> stack = new Stack<>();
+            stack.push(root);
+            Node curr = root.left;
+            Node prev = root;
+            System.out.print("Preorder Traversal : \n"+root.val+" -> ");
+            while(!stack.isEmpty()){
+                if(curr==null) {
+                    prev = curr;
+                    curr = stack.peek();
+                    while(!stack.isEmpty() && curr.right==prev && curr!=null){
+                        prev = stack.pop();
+                        if(!stack.isEmpty())
+                            curr = stack.peek();
+                        else
+                            curr = null;
+                    }
+                    if(curr!=null){
+                        prev = curr;
+                        curr = curr.right;
+                    }
+                } else if(curr.right==prev){
+                    prev = curr;
+                    if(!stack.isEmpty())
+                        curr = stack.pop();
+                } else {
+                    System.out.print(curr.val+" -> ");
+                    prev = curr;
+                    stack.push(prev);
+                    curr = curr.left;
+                }
+            }
+            System.out.println("NULL");
+        }
+    }
+
 }

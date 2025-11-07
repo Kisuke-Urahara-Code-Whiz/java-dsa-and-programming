@@ -8,7 +8,11 @@ public class AVLTest {
         tree.inorder();
         tree.insert(1);
         tree.insert(6);
-        tree.inorder();
-        tree.getHeight();
+        tree.insert(7);
+        tree.insert(10);
+        tree.insert(8);
+        tree.insert(3);
+        tree.preorder();
+        tree.preorderStack();
     }
 }
