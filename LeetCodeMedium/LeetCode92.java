@@ -2,7 +2,7 @@ package LeetCodeMedium;
 
 import Programs.ListNode;
 
-public class LeetCode49 extends ListNode {
+public class LeetCode92 extends ListNode {
 
     ListNode r;
     ListNode l;
@@ -33,7 +33,7 @@ public class LeetCode49 extends ListNode {
 
     public static void main(String[] args) {
         int[] arr = new int[]{1,2,3,4,5};
-        LeetCode49 obj = new LeetCode49();
+        LeetCode92 obj = new LeetCode92();
         ListNode head = obj.createLinkedList(arr);
         System.out.println("Linked List -> ");
         obj.displayLinkedList(head);
