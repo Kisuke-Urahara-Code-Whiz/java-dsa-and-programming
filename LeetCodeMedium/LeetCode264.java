@@ -5,6 +5,7 @@ import java.util.Set;
 
 public class LeetCode264 {
 
+//    APPROACH 1
 //    Set<Integer> set = new HashSet<>();
 //
 //    public int nthUglyNumber(int n) {
@@ -38,24 +39,29 @@ public class LeetCode264 {
 //        return a;
 //    }
 
-    public int nthUglyNumber(int n) {
-        for(int i=1;i<=6;i++){
-            if(i==n)
-                return i;
-        }
-        int c = 6;
-        int x = 6;
+//    APPROACH 2
+//    public int nthUglyNumber(int n) {
+//        for(int i=1;i<=6;i++){
+//            if(i==n)
+//                return i;
+//        }
+//        int c = 6;
+//        int x = 6;
+//
+//        while(x!=n){
+//            c+=1;
+//            int a=c;
+//            while (a % 2 == 0) a /= 2;
+//            while (a % 3 == 0) a /= 3;
+//            while (a % 5 == 0) a /= 5;
+//            if(a==1)
+//                x+=1;
+//        }
+//        return c;
+//    }
 
-        while(x!=n){
-            c+=1;
-            int a=c;
-            while (a % 2 == 0) a /= 2;
-            while (a % 3 == 0) a /= 3;
-            while (a % 5 == 0) a /= 5;
-            if(a==1)
-                x+=1;
-        }
-        return c;
+    public int nthUglyNumber(int n) {
+        return 0;
     }
 
     public static void main(String[] args) {
