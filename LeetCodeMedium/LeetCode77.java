@@ -21,7 +21,7 @@ public class LeetCode77 {
         if(count!=0) {
             for (int i = start; i <= end; i++) {
                 list.add(i);
-                combinations(i,end,count-1,list);
+                combinations(i+1,end,count-1,list);
                 list.removeLast();
             }
         } else {
@@ -31,7 +31,7 @@ public class LeetCode77 {
 
     public static void main(String[] args) {
         LeetCode77 obj = new LeetCode77();
-        System.out.println("Result -> " + obj.combine(4,2));
+        System.out.println("Result -> " + obj.combine(3,3));
     }
 
 }
