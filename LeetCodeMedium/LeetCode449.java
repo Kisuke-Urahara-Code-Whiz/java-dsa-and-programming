@@ -4,44 +4,75 @@ import Programs.TreeNode;
 
 public class LeetCode449 extends TreeNode {
 
-    int x = 0;
+    private int x = 0;
+    private int l = 0;
 
     public String serialize(TreeNode root) {
         if(root==null)
             return "";
         StringBuilder sb = new StringBuilder();
         inorder(root, sb);
+        sb.append('x').append('&');
         preorder(root, sb);
+        sb.append('x');
+        sb.append(l);
         return new String(sb);
     }
 
     public TreeNode deserialize(String data) {
-        int length = data.length()/2;
+        if(data.isEmpty()) return null;
+        int length = 0;
+        int index = data.length()-1;
+        int pow = 0;
+        while(data.charAt(index)!='x'){
+            length = length+((data.charAt(index--)-'0')*(int)Math.pow(10,pow++));
+        }
         int[] inorder = new int[length];
         int[] preorder = new int[length];
-        for(int i=0;i<data.length();i++){
-            if(i+1<=length)
-                inorder[i] = data.charAt(i) - '0';
-            else
-                preorder[i-length] = data.charAt(i) - '0';
+        int num = 0;
+        int arrayIndex = 0;
+        int counter = 0;
+        int pointer = 1;
+        while(pointer<(data.length()-1)){
+            char c = data.charAt(pointer);
+            if(c=='&') {
+                counter = 1;
+                arrayIndex = 0;
+                pointer+=1;
+            }
+            else if(counter==0){
+                if(c=='x') {
+                    inorder[arrayIndex] = num;
+                    arrayIndex+=1;
+                    num = 0;
+                } else {
+                    num = num*10+(c-'0');
+                }
+            } else {
+                if(c=='x') {
+                    preorder[arrayIndex] = num;
+                    arrayIndex+=1;
+                    num = 0;
+                } else {
+                    num = num*10+(c-'0');
+                }
+            }
+            pointer+=1;
         }
         return buildTree(preorder, inorder);
     }
 
     public void inorder(TreeNode curr, StringBuilder sb){
-        if(curr!=null){
-            inorder(curr.left, sb);
-            sb.append(curr.val);
-            inorder(curr.right, sb);
-        }
+        if(curr.left!=null) inorder(curr.left, sb);
+        l+=1;
+        sb.append('x').append(curr.val);
+        if(curr.right!=null) inorder(curr.right, sb);
     }
 
     public void preorder(TreeNode curr, StringBuilder sb){
-        if(curr!=null){
-            sb.append(curr.val);
-            preorder(curr.left, sb);
-            preorder(curr.right, sb);
-        }
+        sb.append('x').append(curr.val);
+        if(curr.left!=null) preorder(curr.left, sb);
+        if(curr.right!=null) preorder(curr.right, sb);
     }
 
     public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -76,9 +107,11 @@ public class LeetCode449 extends TreeNode {
 
     public static void main(String[] args) {
         LeetCode449 obj = new LeetCode449();
+        LeetCode449 obj1 = new LeetCode449();
         TreeNode root = obj.buildTree(new Integer[]{2,1,3});
         String tree = obj.serialize(root);
-        TreeNode ans = obj.deserialize(tree);
+        System.out.println(tree);
+        TreeNode ans = obj1.deserialize(tree);
     }
 
 }
