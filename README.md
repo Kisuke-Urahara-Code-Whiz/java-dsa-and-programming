@@ -7,6 +7,6 @@ Questions Solved:
 Difficulty   | Count
 ------------ | -----
 Easy         | 34
-Medium       | 59
+Medium       | 60
 Hard         | 8
-Total        | 101
+Total        | 102
