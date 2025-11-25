@@ -7,15 +7,15 @@ Questions Solved:
 Difficulty   | Count
 ------------ | -----
 Easy         | 34
-Medium       | 61
+Medium       | 62
 Hard         | 8
-Total        | 103
+Total        | 104
 
 Unofficial Count of Questions Solved: 
 
 Difficulty   | Count
 ------------ | -----
 Easy         | 34
-Medium       | 62
+Medium       | 63
 Hard         | 8
-Total        | 104
+Total        | 105
