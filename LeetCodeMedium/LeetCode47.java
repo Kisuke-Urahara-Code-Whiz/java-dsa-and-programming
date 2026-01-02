@@ -4,52 +4,36 @@ import java.util.*;
 
 public class LeetCode47 {
 
-    List<List<Integer>> result = new ArrayList<>();
-    Set<List<Integer>> unique = new HashSet<>();
-
     public List<List<Integer>> permuteUnique(int[] nums) {
-        int[] processed = new int[nums.length];
-        int a = 0;
-        permute(processed, nums, a);
+        Arrays.sort(nums);
+        boolean[] used = new boolean[nums.length];
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        backtrack(result, temp, used, nums);
         return result;
     }
 
-    public void permute(int[] processed, int[] unprocessed, int a){
-        if(a<processed.length){
-            for(int i=0;i<unprocessed.length;i++){
-                processed[a] = unprocessed[i];
-                permute(processed,makeUnprocessed(unprocessed,i),a+1);
-            }
-        }
+    private void backtrack(
+            List<List<Integer>> result,
+            List<Integer> temp,
+            boolean[] used,
+            int[] arr
+    ){
+        if(used.length==temp.size()) result.add(new ArrayList<>(temp));
         else{
-            List<Integer> list = new ArrayList<>();
-            for (int n : processed) {
-                list.add(n);
-            }
-            if(!unique.contains(list)){
-                result.add(list);
-                unique.add(list);
+            for(int i=0;i<used.length;i++){
+                if(used[i]) continue;
+                if(i>0 && arr[i-1]==arr[i] && !used[i-1]) continue;
+                temp.add(arr[i]);
+                used[i] = true;
+                backtrack(result, temp, used, arr);
+                temp.removeLast();
+                used[i] = false;
             }
         }
-    }
-
-    public int[] makeUnprocessed(int[] unprocessed, int k){
-        int[] newUnprocessed = new int[unprocessed.length-1];
-        int index = 0;
-        for(int i=0;i<unprocessed.length;i++){
-            if(i!=k)
-                newUnprocessed[index++] = unprocessed[i];
-        }
-        return newUnprocessed;
     }
 
     public static void main(String[] args) {
-        LeetCode47 obj = new LeetCode47();
-        int[] arr = new int[]{1,1,2};
-        System.out.println("The Original Array -> \n"+Arrays.toString(arr));
-        System.out.println("Unique Permutations -> ");
-        obj.permuteUnique(arr);
-        System.out.println(obj.result);
+        System.out.println(new LeetCode47().permuteUnique(new int[]{1,2,2}));
     }
-
 }

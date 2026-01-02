@@ -6,27 +6,29 @@ import java.util.List;
 public class LeetCode46 {
 
     public List<List<Integer>> permute(int[] nums) {
+        boolean[] used = new boolean[nums.length];
         List<List<Integer>> result = new ArrayList<>();
-        backtrack(nums, new ArrayList<>(), new boolean[nums.length], result);
+        List<Integer> temp = new ArrayList<>();
+        backtrack(result, temp, used, nums);
         return result;
     }
 
-    private void backtrack(int[] nums, List<Integer> current, boolean[] used, List<List<Integer>> result) {
-        if (current.size() == nums.length) {
-            result.add(new ArrayList<>(current));
-            return;
-        }
-
-        for (int i = 0; i < nums.length; i++) {
-            if (used[i]) continue;
-
-            used[i] = true;
-            current.add(nums[i]);
-
-            backtrack(nums, current, used, result);
-
-            current.remove(current.size() - 1);
-            used[i] = false;
+    private void backtrack(
+            List<List<Integer>> result,
+            List<Integer> temp,
+            boolean[] used,
+            int[] nums
+    ) {
+        if(temp.size()==used.length) result.add(new ArrayList<>(temp));
+        else{
+            for(int i=0;i<used.length;i++){
+                if(used[i]) continue;
+                temp.add(nums[i]);
+                used[i] = true;
+                backtrack(result, temp, used, nums);
+                temp.removeLast();
+                used[i] = false;
+            }
         }
     }
 
