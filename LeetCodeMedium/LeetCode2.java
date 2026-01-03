@@ -1,67 +1,58 @@
 package LeetCodeMedium;
 
-import java.math.BigInteger;
+import Programs.ListNode;
 
-public class LeetCode2 {
-//    **
-//     * Definition for singly-linked list.
-     public class ListNode {
-          int val;
-          ListNode next;
-          ListNode() {}
-          ListNode(int val) { this.val = val; }
-          ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-      }
-//     *
+public class LeetCode2 extends ListNode {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-         ListNode temp1 = l1;
-         ListNode temp2 = l2;
-         String n1 = "";
-         String n2 = "";
-        while(temp1!=null){
-            n1 = String.valueOf(temp1.val)+n1;
-            temp1 = temp1.next;
-        }
-        while(temp2!=null){
-            n2 = String.valueOf(temp2.val)+n2;
-            temp2 = temp2.next;
-        }
-        BigInteger num1 = new BigInteger(n1);
-        BigInteger num2 = new BigInteger(n2);
-        BigInteger sum = num1.add(num2);
-        String s = sum.toString();
-        ListNode head = null;
-        ListNode current = null;
-        if(s.equals('0')){
-            head = new ListNode(0);
+        ListNode dummy = new ListNode(0);
+        reverse(sum(l1, l2, 0),dummy);
+        return dummy.next;
+    }
+
+    public ListNode reverse(ListNode list, ListNode dummy){
+        if(list.next!=null){
+            ListNode l = reverse(list.next, dummy);
+            l.next = list;
+            list.next = null;
         }
         else{
-            int length = s.length();
-            for(int i=0; i<length; i++){
-                if(head==null && current==null){
-                    char lastDigit = s.charAt(s.length()-1);
-                    ListNode temp = new ListNode(Integer.parseInt(String.valueOf(lastDigit)));
-                    head = temp;
-                    current = temp;
-                }
-                else{
-                    char lastDigit = s.charAt(s.length()-1);
-                    ListNode temp = new ListNode(Integer.parseInt(String.valueOf(lastDigit)));
-                    current.next = temp;
-                    current = temp;
-                }
-                s = s.substring(0,s.length()-1);
+            dummy.next = list;
+        }
+        return list;
+    }
+
+    public ListNode sum(ListNode l1, ListNode l2, int carry) {
+        int sum = 0;
+        ListNode node = null;
+        if (l1 == null && l2 == null) {
+            if (carry > 0) return new ListNode(carry);
+        } else {
+            node = new ListNode(0);
+            if (l1 != null && l2 != null) {
+                sum = l1.val + l2.val + carry;
+                node.val = sum % 10;
+                node.next = sum(l1.next, l2.next, sum / 10);
+            } else if (l1 == null) {
+                sum = l2.val + carry;
+                node.val = sum % 10;
+                node.next = sum(l1, l2.next, sum / 10);
+            } else {
+                sum = l1.val + carry;
+                node.val = sum % 10;
+                node.next = sum(l1.next, l2, sum / 10);
             }
         }
-        return head;
+        return node;
     }
+
+
 
     public static void main(String[] args) {
         LeetCode2 solution = new LeetCode2();
 
-        int[] arr1 = {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
-        int[] arr2 = {5,6,4};
+        int[] arr1 = {9};
+        int[] arr2 = {1,9,9,9,9,9,9,9,9,9};
 
         ListNode l1 = solution.createLinkedList(arr1);
         ListNode l2 = solution.createLinkedList(arr2);
