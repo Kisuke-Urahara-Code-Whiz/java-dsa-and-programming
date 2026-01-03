@@ -6,37 +6,34 @@ import java.util.List;
 public class LeetCode784 {
 
     public List<String> letterCasePermutation(String s) {
-        List<String> arr = new ArrayList<>();
-        char[] processed = new char[s.length()];
-        backtrack(arr, s.toCharArray(), processed, 0);
-        return arr;
+        List<String> result = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        char[] arr = s.toCharArray();
+        permute(result, sb, arr, 0);
+        return result;
     }
 
-    public void backtrack(List<String> arr, char[] s, char[] processed, int p){
-        if(p<s.length){
-            char c = s[p];
-            if(Character.isLetter(c)){
-                processed[p] = Character.toUpperCase(c);
-                backtrack(arr, s, processed, p+1);
-                processed[p] = Character.toLowerCase(c);
-                backtrack(arr, s, processed, p+1);
-            }
-            else {
-                processed[p] = c;
-                backtrack(arr, s, processed, p + 1);
-            }
-            processed[p] = ' ';
+    public char reverseCase(int c) {
+        if(65<=c && c<=90) return (char)(c+32);
+        return (char)(c-32);
+    }
+
+    public void permute(
+            List<String> result,
+            StringBuilder sb,
+            char[] arr,
+            int index
+    ){
+        if(sb.length()==arr.length) result.add(new String(sb));
+        else {
+            permute(result, sb.append(arr[index]), arr, index+1);
+            if(Character.isLetter(arr[index]))
+                permute(result, sb.deleteCharAt(index).append(reverseCase(arr[index])), arr, index+1 );
+            sb.deleteCharAt(index);
         }
-        else
-            arr.add(new String(processed));
     }
 
-    public static void main(String[] args) {
-        String s = "a1b2";
-        LeetCode784 obj = new LeetCode784();
-        System.out.println("String -> "+s);
-        System.out.println("Letter Case Permutations -> ");
-        System.out.println(obj.letterCasePermutation(s));
+    static void main() {
+        System.out.println(new LeetCode784().letterCasePermutation("a12B"));
     }
-
 }
