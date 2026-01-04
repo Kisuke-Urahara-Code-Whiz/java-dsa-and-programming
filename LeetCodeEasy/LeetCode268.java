@@ -1,51 +1,46 @@
 package LeetCodeEasy;
 
-import java.util.Arrays;
-import java.util.Scanner;
-
 public class LeetCode268 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the number of integers in the array : ");
-        int n = sc.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            System.out.println("Enter value for index " + i + " : ");
-            arr[i] = sc.nextInt();
-        }
-        System.out.println("Original array : ");
-        display(arr);
-        sort(arr);
-        int missing = n;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] != i)
+
+//  Cyclic Sort Approach
+    public int missingNumber(int[] nums) {
+        int missing = nums.length;
+        cyclicSort(nums);
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==missing){
                 missing = i;
+                break;
+            }
         }
-        System.out.println("The missing number is " + missing);
+        return missing;
     }
 
-    public static void display(int[] arr) {
-        System.out.println(Arrays.toString(arr));
-    }
-
-    public static void swap(int[] arr, int first, int second) {
-        int temp = arr[first];
-        arr[first] = arr[second];
-        arr[second] = temp;
-    }
-
-    public static void sort(int[] arr) {
-        int index = 0;
-        while (index < arr.length) {
-            int correct = arr[index];
-            if (correct != arr.length) {
-                if (arr[correct] == arr[index])
-                    index++;
-                else
-                    swap(arr, correct, index);
-            } else
-                index++;
-
+    public void cyclicSort(int[] arr){
+        for(int i=0;i<arr.length;i++){
+             while(i!=arr[i] && arr[i]!=arr.length){
+                 swap(i, arr[i], arr);
+             }
         }
+    }
+
+    public void swap(int index1, int index2, int[] arr){
+        int temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+    }
+
+//    Sum Approach
+//    public int missingNumber(int [] nums){
+//        int n = nums.length;
+//        int sum = n*(n+1)/2;
+//        int news = 0;
+//        for(int i = 0;i<nums.length;i++){
+//            news += nums[i];
+//        }
+//        return sum - news;
+//    }
+
+    static void main() {
+        System.out.println(new LeetCode268().missingNumber(new int[]{9,6,4,2,3,5,7,0,1}));
     }
 }
