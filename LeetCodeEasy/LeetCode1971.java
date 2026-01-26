@@ -50,4 +50,20 @@ public class LeetCode1971 {
         return result;
     }
 
+    private boolean dfs(Map<Integer, List<Integer>> graph, Set<Integer> visited, int node, int destination){
+        if(node==destination) return true;
+        boolean result = false;
+        visited.add(node);
+        List<Integer> connections = graph.getOrDefault(node, null);
+        if(connections!=null){
+            for(int i:connections){
+                if(!visited.contains(i)){
+                    result = dfs(graph, visited, i, destination);
+                    if(result) break;
+                }
+            }
+        }
+        return result;
+    }
+
 }
