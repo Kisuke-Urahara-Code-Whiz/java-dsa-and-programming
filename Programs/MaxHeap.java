@@ -3,11 +3,11 @@ package Programs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MinHeap {
+public class MaxHeap {
 
     private final List<Integer> heap;
 
-    MinHeap(){
+    MaxHeap(){
         heap = new ArrayList<>();
         heap.add(null);
     }
@@ -19,9 +19,9 @@ public class MinHeap {
         return heap.size()==1;
     }
 
-    public String getMin(){
+    public String getMax(){
         if(isEmpty()) return "Heap is empty";
-        return getRoot()+" is the minimum";
+        return getRoot()+" is the maximum";
     }
 
     public void insertion(int ele){
@@ -29,7 +29,7 @@ public class MinHeap {
         heap.addLast(ele);
         boolean flag = true;
         while(index/2!=0 && flag){
-            if(heap.get(index/2)>heap.get(index)){ swap(index/2, index); index = index/2; }
+            if(heap.get(index/2)<heap.get(index)){ swap(index/2, index); index = index/2; }
             else flag = false;
         }
     }
@@ -48,9 +48,9 @@ public class MinHeap {
         while(2*i<=heap.size()-1){
             int rightidx = 2*i+1;
             int leftidx = 2*i;
-            int smallestidx = leftidx;
-            if(rightidx<=heap.size()-1 && heap.get(rightidx)<heap.get(leftidx)) smallestidx=rightidx;
-            if(heap.get(smallestidx)<heap.get(i)){ swap(smallestidx, i); i=smallestidx; }
+            int largestidx = leftidx;
+            if(rightidx<=heap.size()-1 && heap.get(rightidx)>heap.get(leftidx)) largestidx=rightidx;
+            if(heap.get(largestidx)>heap.get(i)){ swap(largestidx, i); i=largestidx; }
             else break;
         }
         return top+" is removed";
