@@ -9,7 +9,7 @@ public class Wallet {
     private int balance;
 
     public Wallet() {
-        this.lock = new ReentrantLock();
+        this.lock = new ReentrantLock(true);
         this.balance = 10000;
     }
 
