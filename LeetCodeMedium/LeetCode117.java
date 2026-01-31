@@ -34,26 +34,22 @@ public class LeetCode117 {
     };
 
     public Node connect(Node root) {
-        if(root==null)
-            return null;
+        if(root==null) return root;
         Queue<Node> queue = new LinkedList<>();
-        queue.offer(root);
+        queue.add(root);
         int levelLength = queue.size();
         while(!queue.isEmpty()){
-            Node curr = null;
-            for(int i=1;i<=levelLength;i++){
-                if(curr!=null){
-                    curr.next = queue.poll();
-                    curr = curr.next;
-                } else {
-                    curr = queue.poll();
-                }
-                if(curr.left!=null)
-                    queue.offer(curr.left);
-                if(curr.right!=null)
-                    queue.offer(curr.right);
+            Node level = null;
+            for(int i=0;i<levelLength;i++){
+                Node node  = queue.poll();
+                if(level!=null){
+                    level.next = node;
+                    level = level.next;
+                } else level = node;
+                if(node.left!=null) queue.add(node.left);
+                if(node.right!=null) queue.add(node.right);
             }
-            curr.next = null;
+            level = null;
             levelLength = queue.size();
         }
         return root;

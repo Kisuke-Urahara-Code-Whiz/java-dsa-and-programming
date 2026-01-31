@@ -1,55 +1,43 @@
 package Programs;
 
-import java.util.Scanner;
-
 public class BinarySearch {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the number of elements of the array : ");
-        int n = sc.nextInt();
-        int arr[] = new int[n];
-        System.out.println("Enter elements in sorted array : ");
-        for(int i=0;i<n;i++){
-            arr[i] = sc.nextInt();
-        }
-        System.out.println("Enter the target element : ");
-        int choice = sc.nextInt();
-        int index = orderAgnosticSearch(arr,choice);
-        if(index==-1)
-            System.out.println("Target not found");
+
+    public int binarySearch(int[] arr, int search){
+        if(arr.length==1 && arr[0]==search) return 0;
+        else if(arr.length == 1) return -1;
         else{
-            System.out.println("Target found at index = "+index);
+            if(arr[0]<arr[1]) return asc(arr,search);
+            return desc(arr,search);
         }
     }
 
-    public static int orderAgnosticSearch(int[] arr, int target) {
-        int left = 0;
-        int right = arr.length - 1;
-
-        boolean isAscending = arr[left] < arr[right];
-
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-
-            if (arr[mid] == target) {
-                return mid;
-            }
-
-            if (isAscending) {
-                if (target < arr[mid]) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            } else {
-                if (target > arr[mid]) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            }
+    public int asc(int[] arr, int search){
+        int l = 0;
+        int r = arr.length-1;
+        while(l<=r){
+            int mid = l+(r-l)/2;
+            if(arr[mid]==search) return mid;
+            else if(arr[mid]>search) r=mid-1;
+            else l=mid+1;
         }
-
         return -1;
+    }
+
+    public int desc(int[] arr, int search){
+        int l = 0;
+        int r = arr.length-1;
+        while(l<=r){
+            int mid = l+(r-l)/2;
+            if(arr[mid]==search) return mid;
+            else if(arr[mid]>search) l=mid+1;
+            else r=mid-1;
+        }
+        return -1;
+    }
+
+    static void main() {
+        for(int i=0;i<=21;i++) {
+            System.out.println("Index = " + new BinarySearch().binarySearch(new int[]{0,3,6,8,15,21}, i));
+        }
     }
 }

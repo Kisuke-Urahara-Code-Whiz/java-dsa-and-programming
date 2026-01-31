@@ -17,32 +17,35 @@ public class LeetCode17 {
             '9', "wxyz"
     );
 
+    int index = 0;
+
     public List<String> letterCombinations(String digits) {
-        List<String> res = new ArrayList<>();
-        if (digits.length()==0)
-            return res;
-        else {
-            char[] processed = new char[digits.length()];
-            backtrack(res, processed, 0, digits);
-            return res;
-        }
+        List<String> result = new ArrayList<>();
+        StringBuilder temp = new StringBuilder();
+
+        char[] charArray = digits.toCharArray();
+        permute(result, temp, charArray, 0);
+        return result;
     }
 
-    public void backtrack(List<String> res, char[] processed, int p1, String digits){
-        if(p1>=digits.length())
-            res.add(new String(processed));
-        else{
-            String str = employeeMap.get(digits.charAt(p1));
-            for(int i=0;i<str.length();i++){
-                processed[p1] = str.charAt(i);
-                backtrack(res, processed, p1+1, digits);
-                processed[p1] = ' ';
+    public void permute(
+            List<String> result,
+            StringBuilder temp,
+            char[] charArray,
+            int ind
+    ){
+        if(ind==charArray.length) result.add(new String(temp));
+        else {
+            String letters = employeeMap.get(charArray[ind]);
+            for(int i=0;i<letters.length();i++){
+                permute(result, temp.append(letters.charAt(i)), charArray, ind+1);
+                temp.deleteCharAt(ind);
             }
         }
     }
 
     public static void main(String[] args) {
-        String s = "";
+        String s = "223";
         LeetCode17 obj = new LeetCode17();
         System.out.println("The Number Called -> "+s);
         System.out.println("Letter Combinations ->\n"+obj.letterCombinations(s));

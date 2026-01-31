@@ -9,23 +9,23 @@ public class LeetCode39 {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<Integer> list = new ArrayList<>();
         for(int i=0;i<candidates.length;i++){
-            combination(candidates, target, list, i, candidates.length, 0);
+            if(candidates[i]>target) continue;
+            list.add(candidates[i]);
+            sum(list, candidates, target-candidates[i], i);
+            list.removeLast();
         }
         return  result;
     }
 
-    public void combination(int[] candidates, int target, List<Integer> list, int start, int end, int sum){
-        if(start<candidates.length && candidates[start]+sum<=target){
-            sum+=candidates[start];
-            list.add(candidates[start]);
-            if(sum == target)
-                result.add(new ArrayList<>(list));
-            else {
-                for(int i=start;i<=end;i++){
-                    combination(candidates, target, list, i, end, sum);
-                }
+    public void sum(List<Integer> temp, int[] candidates, int target, int index){
+        if(target==0) result.add(new ArrayList<>(temp));
+        else{
+            for(int i=index;i<candidates.length;i++){
+                if(candidates[i]>target) continue;
+                temp.add(candidates[i]);
+                sum(temp, candidates, target-candidates[i], i);
+                temp.removeLast();
             }
-            list.removeLast();
         }
     }
 
