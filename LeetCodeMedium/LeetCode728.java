@@ -21,6 +21,10 @@ public class LeetCode728 {
 
         }
 
+        public boolean isEmpty(){
+            return !(nodes.size()>=1);
+        }
+
         private void reorder(int node, int weight){
             int index = indexes.get(node);
             weights.set(index, weight);
@@ -100,30 +104,35 @@ public class LeetCode728 {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         HashMap<Integer, List<int[]>> graph = new HashMap<>();
         MinHeap minHeap = new MinHeap();
-        HashMap<Integer, Integer> shortestPaths = new HashMap<>();
-        shortestPaths.put(src,0);
+        int[] shortestPaths = new int[n];
+        int[] stops = new int[n];
+        shortestPaths[src] = 0;
+        stops[src] = -1;
         minHeap.insert(src,0);
         for(int[] i: flights){
             List<int[]> connections = graph.get(i[0]);
             if(connections==null){ connections = new ArrayList<>(); graph.put(i[0],connections); }
             connections.add(new int[]{i[1],i[2]});
-            if(i[0]!=src && !shortestPaths.containsKey(i[0])) shortestPaths.put(i[0],Integer.MAX_VALUE);
-            if(i[1]!=src && !shortestPaths.containsKey(i[1])) shortestPaths.put(i[1],Integer.MAX_VALUE);
+            if(i[0]!=src && !(shortestPaths[i[0]]==-1)) { shortestPaths[i[0]]=-1; stops[i[0]] = -1; }
+            if(i[1]!=src && !(shortestPaths[i[1]]==-1)) { shortestPaths[i[1]]=-1; stops[i[1]] = -1; }
         }
         boolean flag = true;
-        while(k!=-1){
+        while(!minHeap.isEmpty()){
             int[] node = minHeap.delete();
-            if(node[0]==dst) return shortestPaths.get(dst);
-            for(int[] i: graph.getOrDefault(node[0], null)){
-                int shortest = shortestPaths.get(i[0]);
-                if(i[1]+node[1]<shortest){
-                    shortestPaths.put(i[0], i[1]+node[1]);
-                    minHeap.insert(i[0], i[1]+node[1]);
+            if(node[0]==dst) break;
+            List<int[]> paths = graph.getOrDefault(node[0], null);
+            if(paths!=null){
+                for(int[] i: paths){
+                    int pathCost = i[1]+node[1];
+                    if(shortestPaths[i[0]]==-1 || pathCost<shortestPaths[i[0]]){
+                        minHeap.insert(i[0],pathCost);
+                        shortestPaths[i[0]] = pathCost;
+                        stops[i[0]] +=1;
+                    }
                 }
             }
-            k-=1;
         }
-        return shortestPaths.get(dst);
+        return shortestPaths[dst];
     }
 
     public static void main(String[] args) {
