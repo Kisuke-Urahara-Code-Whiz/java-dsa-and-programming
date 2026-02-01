@@ -11,23 +11,27 @@ public class LeetCode728 {
         private final List<Integer> nodes;
         private final List<Integer> weights;
         private final HashMap<Integer, Integer> indexes;
+        private final List<Integer> pathsRemaining;
 
         MinHeap(){
             this.nodes = new ArrayList<>();
             this.weights = new ArrayList<>();
+            this.pathsRemaining = new ArrayList<>();
             indexes = new HashMap<>();
+            pathsRemaining.add(null);
             nodes.add(null);
             weights.add(null);
 
         }
 
         public boolean isEmpty(){
-            return !(nodes.size()>=1);
+            return !(nodes.size()>1);
         }
 
-        private void reorder(int node, int weight){
+        private void reorder(int node, int weight, int pathRemaining){
             int index = indexes.get(node);
             weights.set(index, weight);
+            pathsRemaining.set(index, pathRemaining);
             if(index!=1 && weights.get(index)<weights.get(index/2)){
                 while (index / 2 >= 1 && weights.get(index) < weights.get(index / 2)) {
                     swap(index, index / 2);
@@ -48,11 +52,12 @@ public class LeetCode728 {
             }
         }
 
-        public void insert(int node, int weight){
-            if(indexes.containsKey(node)) reorder(node, weight);
+        public void insert(int node, int weight, int pathRemaining){
+            if(indexes.containsKey(node)) reorder(node, weight, pathRemaining);
             else {
                 nodes.add(node);
                 weights.add(weight);
+                pathsRemaining.add(pathRemaining);
                 int index = weights.size() - 1;
                 indexes.put(node, index);
                 while (index / 2 >= 1 && weights.get(index) < weights.get(index / 2)) {
@@ -64,10 +69,11 @@ public class LeetCode728 {
         }
 
         public int[] delete(){
-            int[] nodePath = new int[]{nodes.get(1), weights.get(1)};
+            int[] nodePath = new int[]{nodes.get(1), weights.get(1), pathsRemaining.get(1)};
             swap(1, nodes.size()-1);
             nodes.removeLast();
             weights.removeLast();
+            pathsRemaining.removeLast();
             int index = 1;
             int smallestIndex;
             boolean flag = true;
@@ -95,6 +101,11 @@ public class LeetCode728 {
             weights.set(p1, weight2);
             weights.set(p2, weight1);
 
+            int pathRemaining1 = pathsRemaining.get(p1);
+            int pathRemaining2 = pathsRemaining.get(p2);
+            pathsRemaining.set(p1, pathRemaining2);
+            pathsRemaining.set(p2, pathRemaining1);
+
 
             indexes.put(node1, p2);
             indexes.put(node2, p1);
@@ -105,33 +116,32 @@ public class LeetCode728 {
         HashMap<Integer, List<int[]>> graph = new HashMap<>();
         MinHeap minHeap = new MinHeap();
         int[] shortestPaths = new int[n];
-        int[] stops = new int[n];
         shortestPaths[src] = 0;
-        stops[src] = -1;
-        minHeap.insert(src,0);
+        minHeap.insert(src,0, k);
         for(int[] i: flights){
             List<int[]> connections = graph.get(i[0]);
             if(connections==null){ connections = new ArrayList<>(); graph.put(i[0],connections); }
             connections.add(new int[]{i[1],i[2]});
-            if(i[0]!=src && !(shortestPaths[i[0]]==-1)) { shortestPaths[i[0]]=-1; stops[i[0]] = -1; }
-            if(i[1]!=src && !(shortestPaths[i[1]]==-1)) { shortestPaths[i[1]]=-1; stops[i[1]] = -1; }
+            if(i[0]!=src && !(shortestPaths[i[0]]==-1)) { shortestPaths[i[0]]=-1; }
+            if(i[1]!=src && !(shortestPaths[i[1]]==-1)) { shortestPaths[i[1]]=-1; }
         }
-        boolean flag = true;
         while(!minHeap.isEmpty()){
             int[] node = minHeap.delete();
-            if(node[0]==dst) break;
-            List<int[]> paths = graph.getOrDefault(node[0], null);
+            List<int[]> paths = graph.getOrDefault(node[0],null);
             if(paths!=null){
                 for(int[] i: paths){
-                    int pathCost = i[1]+node[1];
-                    if(shortestPaths[i[0]]==-1 || pathCost<shortestPaths[i[0]]){
-                        minHeap.insert(i[0],pathCost);
-                        shortestPaths[i[0]] = pathCost;
-                        stops[i[0]] +=1;
+                    int pathRemaining = node[2] - 1;
+                    if(pathRemaining>=-1){
+                        int pathCost = node[1] + i[1];
+                        if(shortestPaths[i[0]]==-1 || shortestPaths[i[0]]>pathCost){
+                            shortestPaths[i[0]] = pathCost;
+                            minHeap.insert(i[0], pathCost, pathRemaining);
+                        }
                     }
                 }
             }
         }
+
         return shortestPaths[dst];
     }
 
@@ -139,7 +149,7 @@ public class LeetCode728 {
         System.out.println(new LeetCode728().findCheapestPrice(
                 3,
                 new int[][]{new int[]{0,1,100}, new int[]{1,2,100}, new int[]{0,2,500}},
-                0,2,1
+                0,2,0
         ));
     }
 
