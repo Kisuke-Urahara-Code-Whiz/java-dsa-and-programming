@@ -18,10 +18,10 @@ public class Djikstra_Algo {
         int src = 0;
         Djikstra_Algo obj = new Djikstra_Algo();
         Result result = obj.algorithm(edges, src, n);
-        List<Integer> shortestDistances = result.getShortestDistances();
+        int[] shortestDistances = result.getShortestDistances();
         int[] predecessors = result.getPredecessors();
         for(int i=0;i<n;i++){
-            System.out.println(src+" -> "+i+" , Shortest Distance -> "+shortestDistances.get(i)+" , ShortestDistancePath -> [ "+obj.displayPath(i, predecessors)+" ]");
+            System.out.println(src+" -> "+i+" , Shortest Distance -> "+shortestDistances[i]+" , ShortestDistancePath -> [ "+obj.displayPath(i, predecessors)+" ]");
         }
     }
 
@@ -106,15 +106,15 @@ public class Djikstra_Algo {
     }
 
     private class Result{
-        private final List<Integer> shortestDistances;
+        private final int[] shortestDistances;
         private final int[] predecessors;
 
-        Result(List<Integer> shortestDistances, int[] predecessors){
+        Result(int[] shortestDistances, int[] predecessors){
             this.shortestDistances = shortestDistances;
             this.predecessors = predecessors;
         }
 
-        public List<Integer> getShortestDistances(){
+        public int[] getShortestDistances(){
             return this.shortestDistances;
         }
 
@@ -126,16 +126,18 @@ public class Djikstra_Algo {
     public Result algorithm(int[][] edges, int src, int n){
 
         int[] predecessors = new int[n];
-        List<Integer> shortestDistances = new ArrayList<>();
+        int[] shortestDistances = new int[n];
         HashMap<Integer, List<int[]>> graph = new HashMap<>();
         Minheap minHeap = new Minheap();
 
+        for(int i=0;i<n;i++){
+            if(i==src) shortestDistances[i] = 0;
+            else shortestDistances[i] = -1;
+
+            predecessors[i] = -1;
+        }
+
         for(int i=0;i<edges.length;i++){
-            if(i==src) shortestDistances.add(0);
-            else shortestDistances.add(null);
-
-            if(predecessors[edges[i][0]]!=-1) predecessors[edges[i][0]] = -1;
-
             List<int[]> connections = graph.getOrDefault(edges[i][0], null);
             if(connections==null) { connections = new ArrayList<>(); graph.put(edges[i][0], connections); }
             connections.add(new int[]{edges[i][1], edges[i][2]});
@@ -147,13 +149,13 @@ public class Djikstra_Algo {
             int[] top = minHeap.delete();
             List<int[]> connections = graph.getOrDefault(top[0], null);
             if(connections!=null){
-                int cost = shortestDistances.get(top[0]);
+                int cost = shortestDistances[top[0]];
                 for(int[] i:connections){
                     int currentCost = cost+i[1];
-                    Integer currentShortestDistance = shortestDistances.get(i[0]);
-                    if(currentShortestDistance==null || currentCost<currentShortestDistance){
+                    int currentShortestDistance = shortestDistances[i[0]];
+                    if(currentShortestDistance==-1 || currentCost<currentShortestDistance){
                         minHeap.insert(i[0], currentCost);
-                        shortestDistances.set(i[0], currentCost);
+                        shortestDistances[i[0]] = currentCost;
                         predecessors[i[0]] = top[0];
                     }
                 }
