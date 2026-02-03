@@ -3,6 +3,12 @@ package Programs;
 import java.util.ArrayList;
 import java.util.List;
 
+//Perfect Implementation of Bellman Ford algorithm but the algorithm comes with a lot of tradeoffs
+//It keeps reducing the costs even though not needed till n-1 relaxations are complete
+//We are able to detect negative cycle detection at the nth relaxation
+//Point is -> Bellman Ford is the best single source shortest path algo for negative cycle detection
+//Not the best choice for find the single source shortest path algo for finding the shortest path when negative weights are involved
+//As it keeps reducing unnecessary weights when not needed leading to give us ambiguous shortest path which is extra and incorrect
 public class BellmanFord {
 
     private Result algorithm(int[][] edges, int n, int src){
