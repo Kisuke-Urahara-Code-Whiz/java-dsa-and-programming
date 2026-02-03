@@ -5,24 +5,6 @@ import java.util.List;
 
 public class BellmanFord {
 
-    private class Result{
-        private final List<List<Integer>> shortestPaths;
-        private final List<Integer> shortestDistances;
-
-        Result(List<List<Integer>> shortestPaths, List<Integer> shortestDistances){
-            this.shortestPaths = shortestPaths;
-            this.shortestDistances = shortestDistances;
-        }
-
-        public List<List<Integer>> getShortestPaths(){
-            return this.shortestPaths;
-        }
-
-        public List<Integer> getShortestDistances(){
-            return this.shortestDistances;
-        }
-    }
-
     private Result algorithm(int[][] edges, int n, int src){
         List<List<Integer>> shortestPaths = new ArrayList<>();
         List<Integer> shortestDistances = new ArrayList<>();
@@ -30,12 +12,33 @@ public class BellmanFord {
             List<Integer> path = new ArrayList<>();
             shortestPaths.add(path);
             path.add(src);
-            if(i==src) shortestDistances.set(i,0);
-            else shortestDistances.set(i,null);
+            if(i==src) shortestDistances.add(0);
+            else shortestDistances.add(null);
         }
-        for(int i=0;i<edges.length;i++){
-            
+        for(int i=0;i<n-1;i++){
+            for(int[] j: edges){
+                if(shortestDistances.get(j[0])!=null){
+                    int cost = shortestDistances.get(j[0])+j[2];
+                    Integer prevShortestDistance = shortestDistances.get(j[1]);
+                    if(prevShortestDistance==null || cost<prevShortestDistance){
+                        shortestDistances.set(j[1], cost);
+                        List<Integer> path = shortestPaths.get(j[0]);
+                        List<Integer> newPath = new ArrayList<>(path);
+                        newPath.add(j[1]);
+                        shortestPaths.set(j[1], newPath);
+                    } else if(cost==prevShortestDistance){
+                        List<Integer> path = shortestPaths.get(j[0]);
+                        if(path.size()+1<shortestPaths.get(j[1]).size()){
+                            List<Integer> newPath = new ArrayList<>(path);
+                            newPath.add(j[1]);
+                            shortestPaths.set(j[1], newPath);
+                        }
+                    }
+                }
+            }
         }
+        Result result = new Result(shortestPaths, shortestDistances);
+        return result;
     }
 
     public static void main(String[] args) {
@@ -47,7 +50,7 @@ public class BellmanFord {
                 {4, 6, 1},
                 {0, 2, 7},
                 {1, 4, -4},
-                {3, 1, -2},
+                {3, 1, 5},
                 {2, 4, 8},
                 {4, 5, -2},
                 {5, 6, 3},
@@ -62,7 +65,13 @@ public class BellmanFord {
                 {5, 10, 7}
         };
         int n = 12;
-        Result result = algorithm(edges, n, 0);
+        int src = 0;
+        Result result = new BellmanFord().algorithm(edges, n, src);
+        List<Integer> shortestDistances = result.getShortestDistances();
+        List<List<Integer>> shortestPaths = result.getShortestPaths();
+        for(int i=0;i<n;i++){
+            System.out.println(src+" -> "+i+" , Shortest Distance -> "+shortestDistances.get(i)+" , Path -> "+shortestPaths.get(i));
+        }
     }
 
 }
