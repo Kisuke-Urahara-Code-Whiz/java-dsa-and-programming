@@ -62,7 +62,7 @@ public class SinglyLL {
             System.out.println("Empty Linked List");
             return null;
         }
-        if(root.next==null){c
+        if(root.next==null){
             Node delete = root;
             root = null;
             return delete;
@@ -140,6 +140,40 @@ public class SinglyLL {
         return delete;
     }
 
+    public void reversal(){
+        if(root==null) System.out.println("No reversal");
+        else {
+            Node prev = null;
+            Node curr = root;
+            Node next = root.next;
+            while(next!=null){
+                curr.next= prev;
+                prev = curr;
+                curr = next;
+                next = curr.next;
+            }
+            root = curr;
+            root.next = prev;
+        }
+    }
+
+    public void reversalRec(){
+        if(root==null) System.out.println("No reversal");
+        else reverse(null, root);
+    }
+
+    private Node reverse(Node prev, Node curr){
+        if(curr==null){
+            root = prev;
+            return prev;
+        } else {
+            Node next = reverse(curr, curr.next);
+            next.next = curr;
+            curr.next = null;
+            return curr;
+        }
+    }
+
     public void display(){
         if(root==null) System.out.println("Empty Linked List");
         else{
@@ -166,6 +200,8 @@ public class SinglyLL {
             System.out.println("f) Delete Element");
             System.out.println("g) Delete Element at Any Position");
             System.out.println("h) Display Linked List");
+            System.out.println("i) Reversal");
+            System.out.println("j) Recursive Reversal");
             System.out.println("x) Exit");
             System.out.println("Enter choice -> ");
             char c = ' ';
@@ -221,6 +257,14 @@ public class SinglyLL {
                 case 'h':
                     ll.display();
                     System.out.println();
+                    break;
+
+                case 'i':
+                    ll.reversal();
+                    break;
+
+                case 'j':
+                    ll.reversalRec();
                     break;
 
                 case 'x':
