@@ -39,6 +39,6 @@ public class MergeSort {
 
     public static void main(String[] args) {
         MergeSort obj = new MergeSort();
-        System.out.println(Arrays.toString(obj.divide(new int[]{5,4,3,2,1}, 0, new int[]{5,4,3,2,1}.length)));
+        System.out.println(Arrays.toString(obj.divide(new int[]{5,5,4,3,2,1}, 0, new int[]{5,5,4,3,2,1}.length)));
     }
 }

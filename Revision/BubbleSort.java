@@ -14,13 +14,13 @@ public class BubbleSort {
                     arr[j+1] = temp;
                 } else counter+=1;
             }
-            if(counter==i) break;
+            if(counter==arr.length-i) break;
         }
     }
 
     public static void main(String[] args) {
         BubbleSort obj = new BubbleSort();
-        int[] arr = new int[]{5,4,3,2,1};
+        int[] arr = new int[]{5,5,4,3,2,1};
         obj.sort(arr);
         System.out.println(Arrays.toString(arr));
     }
