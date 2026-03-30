@@ -7,29 +7,32 @@ public class QuickSort {
     public void sort(int[] arr, int l, int r){
         if(l>=r) return;
 
-        int pivot = arr[l+(r-l)/2];
         int s = l;
         int e = r;
 
+        int pivot = arr[l+(r-l)/2];
+
         while(s<=e){
+
             while(arr[s]<pivot){
-                s+=1;
+                s++;
             }
 
             while(arr[e]>pivot){
-                e-=1;
+                e--;
             }
 
             if(s<=e){
                 int temp = arr[s];
                 arr[s] = arr[e];
                 arr[e] = temp;
-                s+=1;
                 e-=1;
+                s+=1;
             }
+
         }
 
-        if(l<e) sort(arr, l, e);
+        if(l<e) sort(arr, l , e);
         if(s<r) sort(arr, s, r);
     }
 
