@@ -25,6 +25,21 @@ public class Knapsack01 {
         return memoisation(dp, wts, profits, w, n);
     }
 
+    public int knapsackTopDown(int[] wts, int[] profits, int w, int n){
+        int[][] dp = new int[n+1][w+1];
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=w;j++){
+                if(wts[i-1]<=j){
+                    dp[i][j] = Math.max(
+                            profits[i-1] + dp[i-1][j-wts[i-1]],
+                            dp[i-1][j]
+                    );
+                } else dp[i][j] = dp[i-1][j];
+            }
+        }
+        return dp[n][w];
+    }
+
     public int memoisation(int[][] dp, int[] wts, int[] profits, int w, int n){
         if(n==0 || w==0) return 0;
         else{
@@ -49,6 +64,7 @@ public class Knapsack01 {
         int maxWeight = 7;
         System.out.println("Maximum profit -> " + obj.knapsack(wts, profits, maxWeight, wts.length));
         System.out.println("Maximum profit -> " + obj.knapsackMemoise(wts, profits, maxWeight, wts.length));
+        System.out.println("Maximum profit -> " + obj.knapsackTopDown(wts, profits, maxWeight, wts.length));
     }
 
 }
