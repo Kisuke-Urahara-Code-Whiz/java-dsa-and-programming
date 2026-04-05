@@ -14,7 +14,7 @@ public class Knapsack01 {
         }
     }
 
-    public int knapsackMemoise(int[] wts, int[] profits, int w, int n){
+    public int knapsackTopDown(int[] wts, int[] profits, int w, int n){
         int[][] dp = new int[w+1][n+1];
         for(int i=0;i<w+1;i++){
             for(int j=0;j<n+1;j++){
@@ -25,7 +25,7 @@ public class Knapsack01 {
         return memoisation(dp, wts, profits, w, n);
     }
 
-    public int knapsackTopDown(int[] wts, int[] profits, int w, int n){
+    public int knapsackBottomUp(int[] wts, int[] profits, int w, int n){
         int[][] dp = new int[n+1][w+1];
         for(int i=1;i<=n;i++){
             for(int j=1;j<=w;j++){
@@ -63,7 +63,7 @@ public class Knapsack01 {
         Knapsack01 obj = new Knapsack01();
         int maxWeight = 7;
         System.out.println("Maximum profit -> " + obj.knapsack(wts, profits, maxWeight, wts.length));
-        System.out.println("Maximum profit -> " + obj.knapsackMemoise(wts, profits, maxWeight, wts.length));
+        System.out.println("Maximum profit -> " + obj.knapsackBottomUp(wts, profits, maxWeight, wts.length));
         System.out.println("Maximum profit -> " + obj.knapsackTopDown(wts, profits, maxWeight, wts.length));
     }
 
