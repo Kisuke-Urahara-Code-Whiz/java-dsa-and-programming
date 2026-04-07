@@ -15,13 +15,9 @@ public class LeetCode416 {
     }
 
     public boolean knapsack(int[] arr, int n, int s){
-        Boolean[][] dp = new Boolean[n+1][s+1];
+        boolean[][] dp = new boolean[n+1][s+1];
         for(int i=0;i<=n;i++){
-            for(int j=0;j<=s;j++){
-                if(j==0) dp[i][j] = true;
-                else if(i==0) dp[i][j] = false;
-                else dp[i][j] = null;
-            }
+            dp[i][0] = true;
         }
         for(int i=1;i<=n;i++){
             for(int j=1;j<=s;j++){
