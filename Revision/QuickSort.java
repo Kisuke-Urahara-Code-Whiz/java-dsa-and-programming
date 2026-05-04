@@ -4,43 +4,45 @@ import java.util.Arrays;
 
 public class QuickSort {
 
-    public void sort(int[] arr, int l, int r){
-        if(l>=r) return;
+    public void sort(int[] arr, int l, int r) {
 
+        if (l >= r) {
+            return;
+        }
+
+        int mid = l + (r - l) / 2;
+        int pivot = arr[mid];
         int s = l;
         int e = r;
 
-        int pivot = arr[l+(r-l)/2];
 
-        while(s<=e){
+        while (s <= e) {
 
-            while(arr[s]<pivot){
+            while (arr[s] < pivot) {
                 s++;
             }
 
-            while(arr[e]>pivot){
+            while (arr[e] > pivot) {
                 e--;
             }
 
-            if(s<=e){
+            if (s <= e) {
                 int temp = arr[s];
                 arr[s] = arr[e];
                 arr[e] = temp;
-                e-=1;
-                s+=1;
+                s++;
+                e--;
             }
-
         }
-
-        if(l<e) sort(arr, l , e);
-        if(s<r) sort(arr, s, r);
+        
+        sort(arr, l, e);
+        sort(arr, s, r);
     }
 
     public static void main(String[] args) {
         QuickSort obj = new QuickSort();
-        int[] arr = new int[]{5,2,4,3,5,1};
-        obj.sort(arr, 0, arr.length-1);
+        int[] arr = new int[]{5, 2, 9, 1, 5, 6};
+        obj.sort(arr, 0, arr.length - 1); // r is inclusive
         System.out.println(Arrays.toString(arr));
     }
-
 }
