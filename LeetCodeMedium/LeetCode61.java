@@ -5,33 +5,19 @@ import Programs.ListNode;
 public class LeetCode61 extends ListNode {
 
     public ListNode rotateRight(ListNode head, int k) {
-        if(head!=null) {
-            ListNode temp = head;
-            ListNode last = head;
-            int l = 1;
-            while (last.next != null) {
-                last = last.next;
-                l += 1;
-            }
-            l = l - (k % l);
-            if (l != 0) {
-                boolean flag = true;
-                while (flag) {
-                    if (l - 1 == 0)
-                        flag = false;
-                    else {
-                        temp = temp.next;
-                        l -= 1;
-                    }
-                }
-                ListNode temp1 = head;
-                last.next = temp1;
-                head = temp.next;
-                temp.next = null;
-            }
+        return null;
+    }
+
+    private int findLength(ListNode node){
+        ListNode temp = node;
+        int l = 0;
+        while(temp!=null){
+            l+=1;
+            temp = temp.next;
         }
-        return head;
-    };
+        return l;
+    }
+
 
     public static void main(String[] args) {
         int[] arr = new int[]{1,2,3,4,5};
