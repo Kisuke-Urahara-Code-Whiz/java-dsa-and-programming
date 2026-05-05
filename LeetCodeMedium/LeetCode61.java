@@ -2,31 +2,63 @@ package LeetCodeMedium;
 
 import Programs.ListNode;
 
-public class LeetCode61 extends ListNode {
+public class LeetCode61 {
 
-    public ListNode rotateRight(ListNode head, int k) {
+//    Reverse and Partition Reverse
+
+//    public ListNode rotateRight(ListNode head, int k) {
+//        int length = findLength(head);
+//        k = k%length;
+//        ListNode dummy = new ListNode(0, head);
+//        reverseBetween(dummy, head, 1, length);
+//        reverseBetween(dummy, dummy.next, 1, k);
+//        ListNode temp = dummy.next;
+//        int remainingCount = length-k;
+//        while(k-1!=0){
+//            temp = temp.next;
+//            k = k-1;
+//        }
+//        reverseBetween(temp, temp.next, 1, remainingCount);
+//        return dummy.next;
+//    }
+//
+//    public void reverseBetween(ListNode prev, ListNode curr, int left, int right) {
+//        ListNode backupCurr = curr;
+//        ListNode backupPrev = prev;
+//        ListNode next;
+//        while(left<=right){
+//            next = curr.next;
+//            curr.next = prev;
+//            prev = curr;
+//            curr = next;
+//            left+=1;
+//        }
+//        backupCurr.next = curr;
+//        backupPrev.next = prev;
+//    }
+//
+//    private int findLength(ListNode node){
+//        ListNode temp = node;
+//        int l = 0;
+//        while(temp!=null){
+//            l+=1;
+//            temp = temp.next;
+//        }
+//        return l;
+//    }
+
+    public ListNode rotateRight(ListNode head, int k){
         return null;
     }
 
-    private int findLength(ListNode node){
-        ListNode temp = node;
-        int l = 0;
-        while(temp!=null){
-            l+=1;
-            temp = temp.next;
-        }
-        return l;
-    }
-
-
     public static void main(String[] args) {
-        int[] arr = new int[]{1,2,3,4,5};
-        LeetCode61 obj = new LeetCode61();
+        int[] arr = new int[]{5,4,3,2,1};
+        ListNode obj = new ListNode();
         ListNode head = obj.createLinkedList(arr);
         System.out.println("Linked List -> ");
         obj.displayLinkedList(head);
         int k = 2;
-        head = obj.rotateRight(head, k);
+        head = new LeetCode61().rotateRight(head, k);
         System.out.println("Linked List rotating by k -> ");
         obj.displayLinkedList(head);
     }

@@ -2,43 +2,37 @@ package LeetCodeMedium;
 
 import Programs.ListNode;
 
-public class LeetCode92 extends ListNode {
-
-    ListNode r;
-    ListNode l;
+public class LeetCode92 {
 
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        ListNode res = new ListNode(0, head);
-        reversal(null, res, 0, left, right);
-        return res.next;
-    }
-
-    public void reversal(ListNode prev, ListNode curr, int c, int left, int right){
-        if(c-1<=right){
-            if(c-1==right){
-                r = curr;
-                l = prev;
-                return;
-            }
-            reversal(curr,curr.next,c+1,left,right);
-            if(c>left && c<=right){
-                curr.next = prev;
-                prev.next = null;
-            } else if(c==left){
-                 curr.next = r;
-                 prev.next = l;
+        if(head==null || head.next==null) return head;
+        ListNode temp = new ListNode(0, head);
+        ListNode prev = temp;
+        ListNode curr = head;
+        int index = 1;
+        boolean flag = false;
+        while(!flag){
+            if(index==left){
+                flag = true;
+                ListNode backupCurr = curr;
+                ListNode backupPrev = prev;
+                ListNode next;
+                while(index<=right){
+                    next = curr.next;
+                    curr.next = prev;
+                    prev = curr;
+                    curr = next;
+                    index+=1;
+                }
+                backupCurr.next = curr;
+                backupPrev.next = prev;
+            } else {
+                prev = curr;
+                curr = curr.next;
+                index+=1;
             }
         }
+        return temp.next;
     }
 
-    public static void main(String[] args) {
-        int[] arr = new int[]{1,2,3,4,5};
-        LeetCode92 obj = new LeetCode92();
-        ListNode head = obj.createLinkedList(arr);
-        System.out.println("Linked List -> ");
-        obj.displayLinkedList(head);
-        System.out.println("Linked List after reversal -> ");
-        head = obj.reverseBetween(head,3,3);
-        obj.displayLinkedList(head);
-    }
 }
