@@ -7,17 +7,17 @@ Questions Solved:
 Difficulty   | Count
 ------------ | -----
 Easy         | 53
-Medium       | 84
+Medium       | 85
 Hard         | 9
-Total        | 146
+Total        | 147
 
 Unofficial Count of Questions Solved: 
 
 Difficulty   | Count
 ------------ | -----
 Easy         | 53
-Medium       | 85
+Medium       | 86
 Hard         | 9
-Total        | 147
+Total        | 148
 
 GFG Hard - 1
