@@ -3,7 +3,7 @@ package LeetCodeMedium;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LeetCode787 {
+public class LeetCode787_Djikstra {
 
     static class HeapResult{
 
@@ -24,32 +24,43 @@ public class LeetCode787 {
         int[] nodeHeap;
         int[] distanceHeap;
         int[] levelHeap;
+        int[][] indexes;
         int dest;
         int stops;
         int currLength;
         int length;
 
         MinHeap(int n, int dest, int stops){
-            length = (n*(n-1))/2;
+            this.length = 10000;
             nodeHeap = new int[length+1];
             distanceHeap = new int[length+1];
             levelHeap = new int[length+1];
             this.dest = dest;
             this.stops = stops+1;
+            this.indexes = new int[n][this.stops+1];
             currLength = 0;
         }
 
         void insert(int node, int wt, int stop){
             if(stop<stops || (stop==stops && node==dest)){
-                currLength+=1;
-                nodeHeap[currLength] = node;
-                distanceHeap[currLength] = wt;
-                levelHeap[currLength] = stop;
-                int tempIndex = currLength;
-                while(tempIndex!=1 && distanceHeap[tempIndex]<distanceHeap[tempIndex/2]){
-                    swap(tempIndex, tempIndex/2);
-                    tempIndex = tempIndex/2;
+                if(indexes[node][stop]==0) {
+                    currLength += 1;
+                    indexes[node][stop] = currLength;
+                    nodeHeap[currLength] = node;
+                    distanceHeap[currLength] = wt;
+                    levelHeap[currLength] = stop;
+                    goUp(currLength);
+                } else if(distanceHeap[indexes[node][stop]]>wt){
+                    distanceHeap[indexes[node][stop]] = wt;
+                    goUp(indexes[node][stop]);
                 }
+            }
+        }
+
+        void goUp(int tempIndex){
+            while(tempIndex!=1 && distanceHeap[tempIndex]<distanceHeap[tempIndex/2]){
+                swap(tempIndex, tempIndex/2);
+                tempIndex = tempIndex/2;
             }
         }
 
@@ -65,6 +76,7 @@ public class LeetCode787 {
             HeapResult result = new HeapResult(resultWt, resultNode, resultLevel);
 
             swap(1, currLength);
+            indexes[resultNode][resultLevel] = 0;
             currLength-=1;
 
             int tempIndex = 1;
@@ -93,6 +105,9 @@ public class LeetCode787 {
             int tempLevel = levelHeap[p1];
             levelHeap[p1] = levelHeap[p2];
             levelHeap[p2] = tempLevel;
+
+            indexes[nodeHeap[p1]][levelHeap[p1]] =p1;
+            indexes[nodeHeap[p2]][levelHeap[p2]] =p2;
 
         }
 
@@ -128,4 +143,5 @@ public class LeetCode787 {
 
         return -1;
     }
+
 }
