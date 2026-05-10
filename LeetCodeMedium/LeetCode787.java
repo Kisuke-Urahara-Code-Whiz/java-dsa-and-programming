@@ -120,7 +120,7 @@ public class LeetCode787 {
             ArrayList<Integer> connections = hashMap.getOrDefault(result.node, null);
             if(connections!=null){
                 for(int i: connections){
-                    heap.insert(i, graph[result.node][i], result.stops+1);
+                    heap.insert(i, result.distance + graph[result.node][i], result.stops+1);
                 }
             }
 
