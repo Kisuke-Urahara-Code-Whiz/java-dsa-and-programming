@@ -17,38 +17,24 @@ public class LeetCode17 {
             '9', "wxyz"
     );
 
-    int index = 0;
-
     public List<String> letterCombinations(String digits) {
+        char[] sb = new char[digits.length()];
         List<String> result = new ArrayList<>();
-        StringBuilder temp = new StringBuilder();
-
-        char[] charArray = digits.toCharArray();
-        permute(result, temp, charArray, 0);
+        backtrack(result, digits, sb, 0, digits.length());
         return result;
     }
 
-    public void permute(
-            List<String> result,
-            StringBuilder temp,
-            char[] charArray,
-            int ind
+    private void backtrack(
+            List<String> result, String digits, char[] sb, int ptr, int length
     ){
-        if(ind==charArray.length) result.add(new String(temp));
-        else {
-            String letters = employeeMap.get(charArray[ind]);
-            for(int i=0;i<letters.length();i++){
-                permute(result, temp.append(letters.charAt(i)), charArray, ind+1);
-                temp.deleteCharAt(ind);
+        if(ptr==length) result.add(new String(sb));
+        else{
+            char[] str = employeeMap.get(digits.charAt(ptr)).toCharArray();
+            for(char c: str){
+                sb[ptr] = c;
+                backtrack(result, digits, sb, ptr+1, length);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        String s = "223";
-        LeetCode17 obj = new LeetCode17();
-        System.out.println("The Number Called -> "+s);
-        System.out.println("Letter Combinations ->\n"+obj.letterCombinations(s));
     }
 
 }
