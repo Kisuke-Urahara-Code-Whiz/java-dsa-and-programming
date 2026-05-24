@@ -6,18 +6,18 @@ Questions Solved:
 
 Difficulty   | Count
 ------------ | -----
-Easy         | 60
+Easy         | 61
 Medium       | 93
 Hard         | 10
-Total        | 163
+Total        | 164
 
 Unofficial Count of Questions Solved: 
 
 Difficulty   | Count
 ------------ | -----
-Easy         | 60
+Easy         | 61
 Medium       | 94
 Hard         | 10
-Total        | 164
+Total        | 165
 
 GFG Hard - 1
