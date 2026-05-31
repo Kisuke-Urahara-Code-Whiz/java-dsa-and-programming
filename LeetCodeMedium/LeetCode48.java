@@ -1,19 +1,12 @@
 package LeetCodeMedium;
 
-public class LeetCode48 {
+//Transpose and Reverse
 
-    public void rotate(int[][] matrix) {
-        transpose(matrix);
-        for(int i=0;i<matrix.length;i++){
-            for(int j=0;j<matrix[0].length;j++){
-                if(j<=(matrix[0].length-1)/2) swap(i,j,matrix);
-            }
-        }
-    }
+public class LeetCode48 {
 
     private void transpose(int[][] matrix){
         for(int i=0;i<matrix.length;i++){
-            for(int j=0;j<matrix[0].length;j++){
+            for(int j=0;j<matrix.length;j++){
                 if(i<j){
                     int temp = matrix[i][j];
                     matrix[i][j] = matrix[j][i];
@@ -23,10 +16,21 @@ public class LeetCode48 {
         }
     }
 
-    private void swap(int m, int n, int[][] matrix){
-        int temp = matrix[m][n];
-        matrix[m][n] = matrix[m][matrix[0].length-1-n];
-        matrix[m][matrix[0].length-1-n] = temp;
+    private void reverse(int[][] matrix){
+        for(int i=0;i<matrix.length;i++){
+            int a = 0;
+            int b = matrix.length - 1;
+            while(a<b){
+                int temp = matrix[i][a];
+                matrix[i][a++] = matrix[i][b];
+                matrix[i][b--] = temp;
+            }
+        }
+    }
+
+    public void rotate(int[][] matrix) {
+        transpose(matrix);
+        reverse(matrix);
     }
 
 }

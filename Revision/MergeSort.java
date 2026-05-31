@@ -4,41 +4,52 @@ import java.util.Arrays;
 
 public class MergeSort {
 
-    public int[] divide(int arr[], int l, int r){
-        if(r-l==1) return arr;
-        int mid = l+(r-l)/2;
-        int arr1[] = new int[mid-l];
-        int arr2[] = new int[r-mid];
-        int counter = 0;
-        for(int i=0;i<(mid-l);i++){
-            arr1[i] = arr[counter++];
+    public void sort(int[] arr, int l, int r){
+        if(r-l!=1){
+            int mid = l+(r-l)/2;
+            sort(arr, l, mid);
+            sort(arr, mid, r);
+            merge(arr, l, mid, r);
         }
-        for(int i=0;i<(r-mid);i++){
-            arr2[i] = arr[counter++];
-        }
-        return conquer(divide(arr1, l, mid), divide(arr2, mid, r));
     }
 
-    public int[] conquer(int[] arr1, int[] arr2){
-        int arr[] = new int[arr1.length+ arr2.length];
+    private void merge(int[] arr, int l, int mid, int r){
+        int[] lArray = new int[mid-l];
+        int[] rArray = new int[r-mid];
+        int ptr = 0;
+        for(int i=l;i<r;i++){
+            if(i<mid){
+                lArray[ptr] = arr[i];
+            } else {
+                rArray[ptr-(mid-l)] = arr[i];
+            }
+            ptr+=1;
+        }
+
         int i = 0;
         int j = 0;
-        int k = 0;
-        while(i< arr1.length && j< arr2.length){
-            if(arr1[i]>arr2[j]) arr[k++] = arr2[j++];
-            else arr[k++] = arr1[i++];
+        int k = l;
+
+        while(i<lArray.length && j<rArray.length){
+            if(lArray[i]<rArray[j]) arr[k++] = lArray[i++];
+            else arr[k++] = rArray[j++];
         }
-        while(i<arr1.length){
-            arr[k++] = arr1[i++];
+
+        while(i<lArray.length){
+            arr[k++] = lArray[i++];
         }
-        while(j<arr2.length){
-            arr[k++] = arr2[j++];
+
+        while(j<rArray.length){
+            arr[k++] = rArray[j++];
         }
-        return arr;
     }
 
     public static void main(String[] args) {
         MergeSort obj = new MergeSort();
-        System.out.println(Arrays.toString(obj.divide(new int[]{5,5,4,3,2,1}, 0, new int[]{5,5,4,3,2,1}.length)));
+        int[] arr = new int[]{4,3,2,1};
+        obj.sort(arr, 0, arr.length);
+        System.out.println(Arrays.toString(arr));
     }
+
+
 }

@@ -1,13 +1,8 @@
-package LeetCodeEasy;
+package Revision;
 
 import Programs.ListNode;
 
-public class LeetCode206_NoRec extends ListNode {
-
-    public ListNode reverseList(ListNode head) {
-        if(head==null || head.next==null) return head;
-        return reversal(null, head);
-    }
+public class Reversal_Iterative {
 
     public ListNode reversal(ListNode prev, ListNode curr){
         ListNode next;
@@ -20,4 +15,9 @@ public class LeetCode206_NoRec extends ListNode {
         return prev;
     }
 
+    public static void main(String[] args) {
+        ListNode obj = new ListNode();
+        ListNode head = obj.createLinkedList(new int[]{5,4,3,2,1});
+        obj.displayLinkedList(new Reversal_Iterative().reversal(null, head));
+    }
 }
