@@ -1,5 +1,7 @@
 package Others;
 
+//GFG Medium
+//Row Major traversal for every intermediate node taken
 public class FloydWarshall {
 
     private static final int INF = (int)Math.pow(10,8);
