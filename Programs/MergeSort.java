@@ -4,53 +4,45 @@ import java.util.Arrays;
 
 public class MergeSort {
 
-    public void sort(int[] arr){
-        int len = arr.length;
-        if(len!=1) {
-            int mid = len / 2;
-            int[] arr1 = new int[mid];
-            int[] arr2 = new int[len - mid];
-            for (int i = 0; i < mid; i++)
-                arr1[i] = arr[i];
-            for (int i = 0; i < (len - mid); i++)
-                arr2[i] = arr[mid + i];
-            sort(arr1);
-            sort(arr2);
-            merge(arr1, arr2, arr);
+    private void divide(int[] arr, int l, int r){
+        if(r-l!=1){
+            int mid = l+(r-l)/2;
+            divide(arr, l, mid);
+            divide(arr, mid, r);
+            merge(arr, l, mid, r);
         }
     }
 
-    public void merge(int[] left, int[] right, int[] arr){
+    private void merge(int[] arr, int l, int mid, int r){
+        int[] lArr = new int[mid-l];
+        int[] rArr = new int[r-mid];
+
+        int a = l;
+        int b = mid;
+
+        for(int i=0;i<(mid-l);i++){
+            lArr[i] = arr[a++];
+        }
+
+        for(int i=0;i<(r-mid);i++){
+            rArr[i] = arr[b++];
+        }
+
         int i = 0;
         int j = 0;
-        int l1 = left.length;
-        int l2 = right.length;
-        int l = arr.length;
-        int k = 0;
+        int k = l;
 
-        while(i<l1 && j<l2){
-            if(left[i]<right[j]) {
-                arr[k] = left[i];
-                k+=1;
-                i+=1;
-            }
-            else{
-                arr[k] = right[j];
-                k+=1;
-                j+=1;
-            }
+        while(i<lArr.length && j<rArr.length){
+            if(lArr[i]<=rArr[j]) arr[k++] = lArr[i++];
+            else arr[k++] = rArr[j++];
         }
 
-        while(i<l1){
-            arr[k] = left[i];
-            k+=1;
-            i+=1;
+        while(i<lArr.length){
+            arr[k++] = lArr[i++];
         }
 
-        while(j<l2){
-            arr[k] = right[j];
-            k+=1;
-            j+=1;
+        while(j<rArr.length){
+            arr[k++] = rArr[j++];
         }
     }
 
@@ -58,7 +50,7 @@ public class MergeSort {
         int[] arr = new int[]{100,34,45,23,14,54,1};
         System.out.println("Original array -> \n"+ Arrays.toString(arr));
         MergeSort obj = new MergeSort();
-        obj.sort(arr);
+        obj.divide(arr, 0, arr.length);
         System.out.println("Sorted array -> \n"+Arrays.toString(arr));
     }
 
