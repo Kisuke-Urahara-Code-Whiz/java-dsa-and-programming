@@ -21,4 +21,4 @@ Hard         | 12
 Total        | 186
 
 GFG Hard - 1
-GFG Medium - 6
+GFG Medium - 8
