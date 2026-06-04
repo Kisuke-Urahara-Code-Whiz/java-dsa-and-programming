@@ -1,4 +1,4 @@
-package Others;
+package GFG_Hard;
 
 //Binary Tree to DLL
 //Difficulty: Hard(GeekForGeeks) Accuracy: 53.36% Submissions: 167K+ Points: 8 Average Time: 60m

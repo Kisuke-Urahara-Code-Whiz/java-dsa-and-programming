@@ -1,4 +1,4 @@
-package Others;
+package GFG_Medium;
 
 //GFG - Medium
 //Negative Cycle - Return {-1}

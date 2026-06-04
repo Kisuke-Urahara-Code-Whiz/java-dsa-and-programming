@@ -1,4 +1,4 @@
-package Others;
+package GFG_Medium;
 
 import java.util.Scanner;
 

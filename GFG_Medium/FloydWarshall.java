@@ -1,4 +1,4 @@
-package Others;
+package GFG_Medium;
 
 //GFG Medium
 //Row Major traversal for every intermediate node taken

@@ -1,24 +1,19 @@
-# LeetCode Progress Tracker
+# DSA Progress Tracker
 
-This is a follow-up of the number of LeetCode questions solved.
-
-Questions Solved:
+Questions Solved in LeetCode:
 
 Difficulty   | Count
 ------------ | -----
 Easy         | 73
-Medium       | 100
+Medium       | 100 (101) 
 Hard         | 12
-Total        | 185
+Total        | 185 (186)
 
-Unofficial Count of Questions Solved: 
+Questions Solved in GeekForGeeks: 
 
 Difficulty   | Count
 ------------ | -----
-Easy         | 73
-Medium       | 101
-Hard         | 12
-Total        | 186
-
-GFG Hard - 1
-GFG Medium - 8
+Easy         | 0
+Medium       | 8
+Hard         | 1
+Total        | 9

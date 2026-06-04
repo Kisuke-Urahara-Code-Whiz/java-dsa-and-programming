@@ -1,4 +1,4 @@
-package Others;
+package GFG_Medium;
 
 //DSU - Cycle Detection
 //If you are about to connect two nodes that already belong to the exact same group, you have found a cycle.
