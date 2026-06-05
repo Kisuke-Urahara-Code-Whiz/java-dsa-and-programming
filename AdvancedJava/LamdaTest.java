@@ -1,4 +1,4 @@
-package Multithreading;
+package AdvancedJava;
 
 import java.util.function.*;
 
@@ -24,7 +24,7 @@ public class LamdaTest {
             System.out.println(new String(sb));
         };
 
-        random.add("Sougata"," is a Pro ","Coder");
+           random.add("Sougata"," is a Pro ","Coder");
 
         Consumer<Integer> consumerExample = (a) -> System.out.println(a);
         BiConsumer<Integer, Integer> biConsumerExample = (a,b) -> System.out.println(a+b);
