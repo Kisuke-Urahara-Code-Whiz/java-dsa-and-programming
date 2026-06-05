@@ -62,4 +62,6 @@ public class Streams {
                 .min((a,b) -> a-b)
                 .orElse(0);
     }
+
+    //there are many more unexplored methods one of which is forEach, reduce learn it on the go
 }

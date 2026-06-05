@@ -1,6 +1,7 @@
 package AdvancedJava;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class DateAndTimeAPI {
 
@@ -9,6 +10,7 @@ public class DateAndTimeAPI {
         LocalDate customDate = LocalDate.of(2006,1,5);
         System.out.println(customDate);
         System.out.println(customDate.getDayOfWeek());
+        ZoneId.getAvailableZoneIds().forEach(System.out::println);
     }
 
 //    1. LocalDate
